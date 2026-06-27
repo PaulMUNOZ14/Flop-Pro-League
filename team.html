@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FPL – Équipe</title>
+    <meta name="description" content="Fiche détaillée d'une équipe de la Flop Pro League – joueurs, palmarès et résultats." />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* ===== TEAM PAGE ===== */
+        .team-page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 100px 1.5rem 3rem;
+            width: 100%;
+        }
+
+        .team-hero {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #141e2a, #0f1820);
+            border: 1px solid #2f4050;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top left, rgba(245,166,35,0.07) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .team-hero-logo {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: drop-shadow(0 8px 24px rgba(245,166,35,0.25));
+        }
+
+        .team-hero-logo-empty {
+            width: 110px;
+            height: 110px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            border: 2px dashed rgba(255,255,255,0.15);
+            flex-shrink: 0;
+        }
+
+        .team-hero-info {
+            flex: 1;
+        }
+
+        .team-hero-name {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .team-hero-edition {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 1rem;
+        }
+
+        .team-hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0.3rem 0.85rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-gold {
+            background: rgba(245,166,35,0.15);
+            border: 1px solid rgba(245,166,35,0.35);
+            color: #f5a623;
+        }
+
+        .badge-silver {
+            background: rgba(180,190,200,0.12);
+            border: 1px solid rgba(180,190,200,0.3);
+            color: #b4bec8;
+        }
+
+        .badge-green {
+            background: rgba(75,180,110,0.12);
+            border: 1px solid rgba(75,180,110,0.3);
+            color: #4fb46e;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #f5a623;
+            margin-bottom: 1rem;
+        }
+
+        .section-block {
+            background: #121a22;
+            border: 1px solid #2f4050;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .player-card {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #0f1820;
+            border: 1px solid #263747;
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            transition: border-color 0.2s, transform 0.15s;
+        }
+
+        .player-card:hover {
+            border-color: #f5a62360;
+            transform: translateY(-1px);
+        }
+
+        .player-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e3048, #2f4050);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #f5a623;
+            flex-shrink: 0;
+        }
+
+        .player-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #d0dce8;
+        }
+
+        .match-result-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background: #0f1820;
+            border: 1px solid #263747;
+            transition: border-color 0.2s;
+        }
+
+        .match-result-row:hover {
+            border-color: #f5a62340;
+        }
+
+        .match-result-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .match-vs {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .match-vs-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .match-vs-logo-empty {
+            width: 28px;
+            height: 28px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.05);
+            border: 1px dashed rgba(255,255,255,0.15);
+            flex-shrink: 0;
+        }
+
+        .match-vs-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #c8d8e8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .match-round-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: rgba(245,166,35,0.1);
+            color: #f5a623;
+            border: 1px solid rgba(245,166,35,0.2);
+            white-space: nowrap;
+        }
+
+        .match-result-score {
+            font-family: monospace;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 0.25rem 0.7rem;
+            border-radius: 6px;
+            min-width: 56px;
+            text-align: center;
+        }
+
+        .score-win {
+            background: rgba(47,112,72,0.25);
+            color: #7ed6a8;
+            border: 1px solid rgba(47,112,72,0.4);
+        }
+
+        .score-loss {
+            background: rgba(180,50,50,0.2);
+            color: #f08080;
+            border: 1px solid rgba(180,50,50,0.35);
+        }
+
+        .score-pending {
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .win-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .win-tag-v { background: rgba(75,180,110,0.15); color: #4fb46e; border: 1px solid rgba(75,180,110,0.3); }
+        .win-tag-d { background: rgba(180,60,60,0.15); color: #e07070; border: 1px solid rgba(180,60,60,0.3); }
+        .win-tag-p { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.1); }
+
+        .stats-mini {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .stat-mini-item {
+            background: #0f1820;
+            border: 1px solid #263747;
+            border-radius: 8px;
+            padding: 0.9rem 0.75rem;
+            text-align: center;
+        }
+
+        .stat-mini-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #f5a623;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-mini-label {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .no-data {
+            color: rgba(255,255,255,0.35);
+            text-align: center;
+            padding: 1.5rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .team-hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.2rem;
+            }
+            .team-hero-badges {
+                justify-content: center;
+            }
+            .team-hero-name {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="team-page" id="teamPage">
+        <!-- Rempli par JS -->
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const params  = new URLSearchParams(window.location.search);
+        const teamId  = params.get('team');
+        const page    = document.getElementById('teamPage');
+
+        const LOGO_PATH = './Equipes/Fond transparent/';
+
+        function escapeHtml(v) {
+            return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+        }
+
+        var teamData = null;
+        var allMatches = [];
+        var participations = [];
+        var championEditions = [];
+        var latestPlayers = [];
+        var maxEditionIndex = -1;
+
+        if (typeof EDITIONS !== 'undefined') {
+            EDITIONS.forEach(function(edition, eIdx) {
+                var currentEditionIndex = eIdx + 1;
+                var t = (edition.teams || []).find(function(t){ return t.id === teamId; });
+                
+                if (t) {
+                    if (!teamData) teamData = Object.assign({}, t, { editionName: edition.name, editionIndex: currentEditionIndex });
+                    participations.push(currentEditionIndex);
+                    
+                    if (currentEditionIndex > maxEditionIndex) {
+                        maxEditionIndex = currentEditionIndex;
+                        latestPlayers = t.players || [];
+                    }
+                }
+
+                (edition.matches || []).forEach(function(match) {
+                    if (match.team1Id === teamId || match.team2Id === teamId) {
+                        allMatches.push({ match: match, edition: edition, editionIndex: currentEditionIndex });
+                        
+                        // Check if team won the finale of this edition
+                        if (match.round === 'Finale' && match.winnerId === teamId) {
+                            championEditions.push(currentEditionIndex);
+                        }
+                    }
+                });
+            });
+        }
+
+        if (!teamData) {
+            page.innerHTML =
+                '<div style="text-align:center; padding:4rem 0;">' +
+                '<p style="color:rgba(255,255,255,0.4); font-size:1.1rem;">Equipe introuvable.</p>' +
+                '<a href="index.html" class="back-link" style="margin-top:1rem; display:inline-block;">&larr; Retour</a>' +
+                '</div>';
+            return;
+        }
+
+        document.title = 'FPL \u2013 ' + teamData.name;
+
+        var wins = 0, losses = 0, played = 0;
+        allMatches.forEach(function(item) {
+            var match = item.match;
+            if (match.winnerId !== null && match.winnerId !== undefined) {
+                played++;
+                if (match.winnerId === teamId) wins++;
+                else losses++;
+            }
+        });
+
+        var logoHtml = teamData.logo
+            ? '<img src="' + LOGO_PATH + escapeHtml(teamData.logo) + '" alt="' + escapeHtml(teamData.name) + '" class="team-hero-logo" />'
+            : '<div class="team-hero-logo-empty"></div>';
+            
+        var smallMyLogoHtml = teamData.logo
+            ? '<img src="' + LOGO_PATH + escapeHtml(teamData.logo) + '" alt="' + escapeHtml(teamData.name) + '" class="match-vs-logo" title="' + escapeHtml(teamData.name) + '" />'
+            : '<div class="match-vs-logo-empty" title="' + escapeHtml(teamData.name) + '"></div>';
+
+        var badgesHtml = '';
+        championEditions.forEach(function(edIdx) {
+            badgesHtml += '<span class="badge badge-gold" title="Vainqueur de l\'\u00c9dition ' + edIdx + '">\uD83C\uDFC6 Champion (\u00c9d. ' + edIdx + ')</span>';
+        });
+        
+        if (participations.length > 0) {
+            var partsText = participations.length > 1 
+                ? 'A participé aux éditions ' + participations.slice(0, -1).join(', ') + ' & ' + participations[participations.length - 1]
+                : 'A participé à l\'édition ' + participations[0];
+            badgesHtml += '<span class="badge badge-silver">' + partsText + '</span>';
+        }
+
+        var playersHtml = latestPlayers.length > 0
+            ? latestPlayers.map(function(p) {
+                return '<div class="player-card">' +
+                    '<div class="player-avatar">' + escapeHtml(p.charAt(0).toUpperCase()) + '</div>' +
+                    '<span class="player-name">' + escapeHtml(p) + '</span>' +
+                    '</div>';
+              }).join('')
+            : '<p class="no-data">Aucun joueur enregistré.</p>';
+
+        var matchRowsHtml = allMatches.length > 0 ? allMatches.map(function(item) {
+            var match = item.match;
+            var edition = item.edition;
+            var opponentId = match.team1Id === teamId ? match.team2Id : match.team1Id;
+            var opponent = opponentId ? (edition.teams || []).find(function(t){ return t.id === opponentId; }) : null;
+            var myScore  = match.team1Id === teamId ? match.score1 : match.score2;
+            var oppScore = match.team1Id === teamId ? match.score2 : match.score1;
+            var isPlayed = match.winnerId !== null && match.winnerId !== undefined;
+            var isWin    = isPlayed && match.winnerId === teamId;
+
+            var oppLogoHtml = (opponent && opponent.logo)
+                ? '<img src="' + LOGO_PATH + escapeHtml(opponent.logo) + '" alt="' + escapeHtml(opponent.name) + '" class="match-vs-logo" title="' + escapeHtml(opponent.name) + '" />'
+                : '<div class="match-vs-logo-empty" title="À définir"></div>';
+            
+            var opponentLink = opponentId
+                ? '<a href="team.html?team=' + escapeHtml(opponentId) + '" class="match-vs-link" style="display:inline-flex; align-items:center;">' + oppLogoHtml + '</a>'
+                : oppLogoHtml;
+
+            var scoreClass = isPlayed ? (isWin ? 'score-win' : 'score-loss') : 'score-pending';
+            var scoreText  = isPlayed ? ((myScore !== null && myScore !== undefined ? myScore : '-') + ' \u2013 ' + (oppScore !== null && oppScore !== undefined ? oppScore : '-')) : '\u00c0 venir';
+            var winTagClass = isPlayed ? (isWin ? 'win-tag-v' : 'win-tag-d') : 'win-tag-p';
+            var winTagText  = isPlayed ? (isWin ? 'Victoire' : 'D\u00e9faite') : '\u00c0 venir';
+
+            return '<div class="match-result-row">' +
+                '<div class="match-vs" style="display: flex; align-items: center; gap: 10px;">' + smallMyLogoHtml + '<span style="color: rgba(255,255,255,0.3); font-weight: 600; font-size: 0.85rem;">VS</span>' + opponentLink + '</div>' +
+                '<span class="match-round-badge">\u00c9d.' + item.editionIndex + ' - ' + escapeHtml(match.round) + '</span>' +
+                '<span class="match-result-score ' + scoreClass + '">' + scoreText + '</span>' +
+                '<span class="win-tag ' + winTagClass + '">' + winTagText + '</span>' +
+                '</div>';
+        }).join('') : '<p class="no-data">Aucun match trouvé pour cette équipe.</p>';
+
+        var pct = played > 0 ? Math.round(wins / played * 100) + '%' : '&mdash;';
+
+        page.innerHTML =
+            '<div class="team-hero">' +
+                logoHtml +
+                '<div class="team-hero-info">' +
+                    '<div class="team-hero-name">' + escapeHtml(teamData.name) + '</div>' +
+                    '<div class="team-hero-edition">Flop Pro League &middot; Première participation : ' + escapeHtml(teamData.editionName) + '</div>' +
+                    '<div class="team-hero-badges">' + badgesHtml + '</div>' +
+                '</div>' +
+            '</div>' +
+
+            '<div class="section-block">' +
+                '<div class="section-title">Statistiques</div>' +
+                '<div class="stats-mini">' +
+                    '<div class="stat-mini-item"><div class="stat-mini-value">' + played + '</div><div class="stat-mini-label">Matchs joués</div></div>' +
+                    '<div class="stat-mini-item"><div class="stat-mini-value" style="color:#4fb46e;">' + wins + '</div><div class="stat-mini-label">Victoires</div></div>' +
+                    '<div class="stat-mini-item"><div class="stat-mini-value" style="color:#e07070;">' + losses + '</div><div class="stat-mini-label">Défaites</div></div>' +
+                    '<div class="stat-mini-item"><div class="stat-mini-value">' + pct + '</div><div class="stat-mini-label">% Victoires</div></div>' +
+                '</div>' +
+            '</div>' +
+
+            '<div class="section-block">' +
+                '<div class="section-title">Joueurs</div>' +
+                '<div class="players-grid">' + playersHtml + '</div>' +
+            '</div>' +
+
+            '<div class="section-block">' +
+                '<div class="section-title">Historique des matchs</div>' +
+                matchRowsHtml +
+            '</div>' +
+
+            '<a href="javascript:history.back()" class="back-link">&larr; Retour</a>';
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FPL – Édition</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="bracket-wrapper">
+        <h1 id="editionTitle">Flop Pro League – Édition</h1>
+        <div id="bracketContainer"></div>
+        <a href="index.html" class="back-link">← Retour à l’accueil</a>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- ===== MODALE ===== -->
+    <div class="modal-overlay" id="matchModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2 id="modalTitle">Détail du BO3</h2>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script src="edition.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FPL – Classement</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: #121818;
+            border: 1px solid #1a2626;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .ranking-table th, .ranking-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #1a2626;
+        }
+        .ranking-table th {
+            background: rgba(255, 255, 255, 0.03);
+            font-weight: 600;
+            color: #f5a623;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        .ranking-table tr:last-child td {
+            border-bottom: none;
+        }
+        .ranking-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .rank-number {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #b0c4dd;
+        }
+        .rank-1 .rank-number {
+            color: #ffd700;
+        }
+        .rank-2 .rank-number {
+            color: #c0c0c0;
+        }
+        .rank-3 .rank-number {
+            color: #cd7f32;
+        }
+        .team-col {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+        .team-logo-small {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        .team-name {
+            font-weight: 600;
+            color: #e8edf5;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .team-name:hover {
+            color: #f5a623;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <div class="page-content">
+        <h1>Classement <span class="highlight">Global</span></h1>
+        <p>Découvrez le classement de toutes les équipes ayant participé à la Flop Pro League, basé sur leur nombre de victoires puis leur pourcentage de réussite.</p>
+
+        <div style="overflow-x: auto;">
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th data-sort="rank" style="cursor: pointer;">Rang <span class="sort-icon"></span></th>
+                        <th data-sort="name" style="cursor: pointer; text-align: left;">Équipe <span class="sort-icon"></span></th>
+                        <th data-sort="played" style="cursor: pointer;">Joués <span class="sort-icon"></span></th>
+                        <th data-sort="wins" style="cursor: pointer;">Victoires <span class="sort-icon"></span></th>
+                        <th data-sort="losses" style="cursor: pointer;">Défaites <span class="sort-icon"></span></th>
+                        <th data-sort="winRate" style="cursor: pointer;">% Victoire <span class="sort-icon"></span></th>
+                        <th data-sort="titles" style="cursor: pointer;">Titres <span class="sort-icon"></span></th>
+                    </tr>
+                </thead>
+                <tbody id="rankingBody">
+                    <!-- Généré par JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="script.js"></script>
+    <script src="data.js"></script>
+    <script src="ranking.js"></script>
+</body>
+</html>

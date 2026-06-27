@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FPL – Flop Pro League</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <!-- ===== HERO AVEC VIDÉO ===== -->
+    <section class="hero">
+
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="assets/fpl-background.mp4" type="video/mp4" />
+        </video>
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <div class="hero-badge">CS2 • League compétitive parodique</div>
+            <h1>
+                <span class="highlight">Flop</span> Pro League
+            </h1>
+            <p class="subtitle">League Counter-Strike 2</p>
+            <p class="tagline">
+                La ligue communautaire où la compétition rime avec fair‑play, progression et bonne humeur.
+                Rejoignez l’aventure et écrivez votre propre histoire sur CS2.
+            </p>
+
+            <div class="cta-group">
+                <a href="#editions" class="btn-primary">Voir les éditions</a>
+                <a href="about.html" class="btn-secondary">En savoir plus</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="number" id="statEditions">0</div>
+                    <div class="label">Éditions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" id="statTeams">0</div>
+                    <div class="label">Équipes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" id="statMatches">0</div>
+                    <div class="label">Matchs joués</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" id="statMoments">0</div>
+                    <div class="label">Moments mémorables</div>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">↓ Faites défiler pour explorer</div>
+        </div>
+    </section>
+
+    <!-- ===== CONTENU SOUS LE HERO ===== -->
+    <section class="content-below" id="features">
+        <h2>Pourquoi la <span style="color:#f5a623;">FPL</span> ?</h2>
+        <p class="sub-text">Une ligue accessible, conviviale et compétitive, pensée par et pour la communauté.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon">🎯</div>
+                <h3>Compétition saine</h3>
+                <p>Des matchs équilibrés et un esprit sportif avant tout.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🤝</div>
+                <h3>Communauté</h3>
+                <p>Rejoignez des joueurs passionnés, du Silver au Global.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📈</div>
+                <h3>Progression</h3>
+                <p>Chaque défaite est une leçon, chaque victoire une étape.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION ÉDITIONS (en colonne verticale) ===== -->
+    <section class="editions-section" id="editions">
+        <h2>📅 Éditions</h2>
+        <p class="sub-text">Retrouvez toutes les éditions passées et à venir de la Flop Pro League.</p>
+        <div class="editions-vertical" id="editionsContainer">
+            <!-- Généré par JavaScript -->
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="script.js"></script>
+    <script src="data.js"></script>
+    <script>
+        // ==========================================
+        // AFFICHAGE DES ÉDITIONS (tri chronologique inverse)
+        // ==========================================
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const container = document.getElementById('editionsContainer');
+            if (!container || typeof EDITIONS === 'undefined') {
+                if (container) {
+                    container.innerHTML = '<p style="color:rgba(255,255,255,0.5); text-align:center;">Aucune édition disponible.</p>';
+                }
+                return;
+            }
+
+            function renderHomeStats() {
+                const uniqueTeams = new Set();
+                let playedMatches = 0;
+
+                EDITIONS.forEach(edition => {
+                    (edition.teams || []).forEach(team => uniqueTeams.add(team.id));
+                    (edition.matches || []).forEach(match => {
+                        if (match.winnerId !== null && match.winnerId !== undefined) {
+                            playedMatches += 1;
+                        }
+                    });
+                });
+
+                const statValues = {
+                    statEditions: EDITIONS.length,
+                    statTeams: uniqueTeams.size,
+                    statMatches: playedMatches,
+                    statMoments: typeof FPL_STATS !== 'undefined' && FPL_STATS.memorableMoments !== undefined
+                        ? FPL_STATS.memorableMoments
+                        : '∞'
+                };
+
+                Object.entries(statValues).forEach(([id, value]) => {
+                    const target = document.getElementById(id);
+                    if (target) {
+                        target.textContent = value;
+                    }
+                });
+            }
+
+            renderHomeStats();
+
+            // Copie et tri du plus récent au plus ancien (on inverse l'ordre)
+            const editionsSorted = [...EDITIONS].reverse();
+
+            editionsSorted.forEach((edition, index) => {
+                const card = document.createElement('div');
+                card.className = 'edition-card';
+
+                const info = document.createElement('div');
+                info.className = 'edition-info';
+
+                const name = document.createElement('div');
+                name.className = 'edition-name';
+                name.textContent = edition.name;
+
+                const status = document.createElement('div');
+                status.className = 'edition-status';
+                const total = edition.matches ? edition.matches.length : 0;
+                const played = edition.matches ? edition.matches.filter(m => m.winnerId !== null && m.winnerId !== undefined).length : 0;
+                let statusText = `${played}/${total} matchs joués`;
+                if (total === 0) {
+                    statusText = '📋 Pas encore de matchs';
+                }
+                if (index === 0 && total > 0) {
+                    statusText += ' <span class="latest">⭐ Édition la plus récente</span>';
+                }
+                status.innerHTML = statusText;
+
+                const link = document.createElement('a');
+                link.className = 'edition-link';
+                link.href = `edition.html?edition=${EDITIONS.length - index}`;
+                link.textContent = 'Voir le détail →';
+
+                info.appendChild(name);
+                info.appendChild(status);
+                card.appendChild(info);
+                card.appendChild(link);
+                container.appendChild(card);
+            });
+        });
+    </script>
+
+</body>
+</html>
