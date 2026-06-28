@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <a href="index.html">Accueil</a>
                     <a href="about.html">À propos</a>
                     <a href="contact.html">Contact</a>
-                    <a href="https://www.youtube.com/" target="_blank">YouTube</a>
+                    <a href="https://www.youtube.com/@FlopProLeague" target="_blank">YouTube</a>
                 </div>
                 <p>© 2026 Flop Pro League</p>
                 <p style="font-size:0.75rem; color:#4a5a5a; margin-top:4px;">
