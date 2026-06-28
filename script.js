@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         headerPlaceholder.innerHTML = `
             <header class="site-header">
                 <div class="logo">
-                    FPL <small>| Flop Pro League</small>
+                    <a href="index.html">FPL</a> <small>| Flop Pro League</small>
                 </div>
                 <nav class="nav-links">
                     <a href="index.html">Accueil</a>

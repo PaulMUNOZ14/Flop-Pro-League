@@ -56,6 +56,12 @@ a:hover {
     color: #fff;
     letter-spacing: -0.5px;
 }
+.logo a{
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
 .logo span {
     background: linear-gradient(135deg, #f5a623, #d48c1a);
     -webkit-background-clip: text;
