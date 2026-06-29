@@ -63,17 +63,17 @@ const EDITIONS = [
             { id: 'Na_Visibles',   name: "Na'Visibles",    logo: 'Na_Visibles-t.png',    players: ['Green', 'YoshiGamerFR'] },
             { id: 'Froze_Clan',    name: 'Froze Clan',     logo: 'Froze_Clan-t.png',     players: ['Jocho', 'Tenki'] },
             { id: 'Virtus_Prof',   name: 'Virtus.Prof',    logo: 'Virtus_Prof-t.png',    players: ['Caradhriel', 'Scorpio'] },
-            { id: 'Astral_BOF',    name: 'Astral BOF',     logo: 'Astral-BOF-t.png',     players: ['Nebula', 'CosmicFrag'] },
+            { id: 'AstraBOOM',    name: 'AstraBOOM',     logo: 'AstraBOOM-t.png',     players: ['Nebula', 'CosmicFrag'] },
             { id: 'Fnatoc',        name: 'Fnatoc',         logo: 'Fnatoc-t.png',         players: ['Rojo', 'SpeedRunCS'] },
             { id: 'G3_Esport',     name: 'G3 Esport',      logo: 'G3_Esport-t.png',      players: ['Triforce', 'WinRateZero'] },
-            { id: 'Karmine_Flop',  name: 'Karmine Flop',   logo: 'Karmine_Flop-t.png',   players: ['KFC', 'DoubleKill'] }
+            { id: 'Kalamine_Corp',  name: 'Kalamine Corp',   logo: 'Kalamine_Corp-t.png',   players: ['KFC', 'DoubleKill'] }
         ],
         matches: [
             // ---- QUARTS DE FINALE ----
             {
                 round: 'Quarts',
                 team1Id: 'Vitiligo',
-                team2Id: 'Astral_BOF',
+                team2Id: 'AstraBOOM',
                 winnerId: 'Vitiligo',
                 score1: 2,
                 score2: 0,
@@ -113,8 +113,8 @@ const EDITIONS = [
             {
                 round: 'Quarts',
                 team1Id: 'Virtus_Prof',
-                team2Id: 'Karmine_Flop',
-                winnerId: 'Karmine_Flop',
+                team2Id: 'Kalamine_Corp',
+                winnerId: 'Kalamine_Corp',
                 score1: 1,
                 score2: 2,
                 youtube: null,
@@ -142,8 +142,8 @@ const EDITIONS = [
             {
                 round: 'Demi',
                 team1Id: 'G3_Esport',
-                team2Id: 'Karmine_Flop',
-                winnerId: 'Karmine_Flop',
+                team2Id: 'Kalamine_Corp',
+                winnerId: 'Kalamine_Corp',
                 score1: 0,
                 score2: 2,
                 youtube: null,
@@ -156,8 +156,8 @@ const EDITIONS = [
             {
                 round: 'Finale',
                 team1Id: 'Vitiligo',
-                team2Id: 'Karmine_Flop',
-                winnerId: 'Karmine_Flop',
+                team2Id: 'Kalamine_Corp',
+                winnerId: 'Kalamine_Corp',
                 score1: 1,
                 score2: 2,
                 youtube: null,
@@ -184,7 +184,7 @@ const EDITIONS = [
             { id: 'Virtus_Prof',       name: 'Virtus.Prof',       logo: 'Virtus_Prof-t.png',       players: ['Caradhriel', 'Scorpio'] },
             { id: 'Liquide_Vaisselle', name: 'Liquide Vaisselle', logo: 'Liquide_Vaisselle-t.png', players: ['WashOut', 'BubbleRift'] },
             { id: 'Mouzquitto',        name: 'Mouzquitto',        logo: 'Mouzquitto-t.png',        players: ['BugByte', 'MosquitoKill'] },
-            { id: 'Karmine_Flop',      name: 'Karmine Flop',      logo: 'Karmine_Flop-t.png',      players: ['KFC', 'DoubleKill'] },
+            { id: 'Kalamine_Corp',      name: 'Kalamine Corp',      logo: 'Kalamine_Corp-t.png',      players: ['KFC', 'DoubleKill'] },
             { id: 'G3_Esport',         name: 'G3 Esport',         logo: 'G3_Esport-t.png',         players: ['Triforce', 'WinRateZero'] }
         ],
         matches: [
@@ -219,7 +219,7 @@ const EDITIONS = [
             {
                 round: 'Quarts',
                 team1Id: 'Froze_Clan',
-                team2Id: 'Karmine_Flop',
+                team2Id: 'Kalamine_Corp',
                 winnerId: 'Froze_Clan',
                 score1: 2,
                 score2: 0,
